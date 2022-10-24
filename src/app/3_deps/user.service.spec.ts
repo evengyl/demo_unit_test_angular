@@ -10,7 +10,23 @@ describe('UserService', () => {
     service = TestBed.inject(UserService);
   });
 
-  it('Peux être créé', () => {
-    expect(service).toBeTruthy();
+  it('#getValue should return real value', () => {
+    expect(service.user).toBe({name : "loic", age : "42"});
+  });
+
+  it('#getObservableValue should return value from observable',
+    (done: DoneFn) => {
+    service.getObservableValue().subscribe(value => {
+      expect(value).toBe('observable value');
+      done();
+    });
+  });
+
+  it('#getPromiseValue should return value from a promise',
+    (done: DoneFn) => {
+    service.getPromiseValue().then(value => {
+      expect(value).toBe('promise value');
+      done();
+    });
   });
 });
